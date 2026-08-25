@@ -27,15 +27,20 @@ export async function showUser(req, res) {
 // Update User
 export async function updateUser(req, res) {
     try {
-        const { name, profilePic } = req.body;
         const { id } = req.params;
+
+        // Check if logged-in user owns this account
+        if (req.user.id !== id) {
+            return res.status(403).json({
+                message: "You are not authorized to update this user!"
+            });
+        }
+
+        const { name, profilePic } = req.body;
 
         const user = await User.findByIdAndUpdate(
             id,
-            {
-                name,
-                profilePic
-            },
+            { name, profilePic },
             {
                 new: true,
                 runValidators: true
