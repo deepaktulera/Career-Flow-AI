@@ -62,7 +62,7 @@ const Login = () => {
     }
 
     return (
-        <div className="w-full min-h-screen flex items-center justify-center py-6 px-4 bg-gradient-to-r from-blue-300 via-white to-purple-300">
+        <div className="w-full min-h-screen flex items-center justify-center py-6 px-4 bg-[radial-gradient(circle_at_50%_-10%,rgba(37,99,235,0.16),transparent_42%),radial-gradient(circle_at_100%_45%,rgba(96,165,250,0.12),transparent_30%)]">
 
             <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-xl animate-fadeIn">
 
