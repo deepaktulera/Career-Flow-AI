@@ -11,6 +11,8 @@ export function verifyToken(req, res, next) {
         }
 
         const token = header.split(" ")[1];
+        console.log(token);
+        
 
         if (!token) {
             return res.status(401).json({
@@ -22,8 +24,12 @@ export function verifyToken(req, res, next) {
             token,
             process.env.JWT_SECRET
         );
+        console.log(decoded);
+        
 
         req.user = decoded;
+        console.log(req.user);
+        
 
         next();
 

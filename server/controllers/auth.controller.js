@@ -2,6 +2,8 @@ import User from "../models/User.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+
+// Register User
 export async function registerUser(req, res) {
     try {
         const { name, email, password, profilePic } = req.body;
@@ -44,7 +46,7 @@ export async function registerUser(req, res) {
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("Register Error:", error);
 
         return res.status(500).json({
             message: "Internal Server Error"
@@ -53,6 +55,7 @@ export async function registerUser(req, res) {
 }
 
 
+// Login User
 export async function loginUser(req, res) {
     try {
         const { email, password } = req.body;
@@ -109,7 +112,74 @@ export async function loginUser(req, res) {
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("Login Error:", error);
+
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+}
+
+
+// Change Password
+export async function changePassword(req, res) {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        // Validate required fields
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({
+                message: "Current password and new password are required"
+            });
+        }
+
+        // Find logged-in user
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // Check if current password is correct
+        const isPasswordCorrect = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!isPasswordCorrect) {
+            return res.status(401).json({
+                message: "Current password is incorrect"
+            });
+        }
+
+        // Prevent using the same password
+        const isSamePassword = await bcrypt.compare(
+            newPassword,
+            user.password
+        );
+
+        if (isSamePassword) {
+            return res.status(400).json({
+                message: "New password must be different from current password"
+            });
+        }
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update password
+        user.password = hashedPassword;
+
+        await user.save();
+
+        return res.status(200).json({
+            message: "Password updated successfully!"
+        });
+
+    } catch (error) {
+        console.error("Change Password Error:", error);
 
         return res.status(500).json({
             message: "Internal Server Error"
