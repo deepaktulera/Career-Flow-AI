@@ -1,10 +1,11 @@
-import User from "../models/User.model.js";
+import User from "../models/UserModel.js";
+
 
 // Get All Users
 export async function showUsers(req, res) {
     try {
         const users = await User.find({})
-            .select("-password");
+            .select("name , profilePic , -_id");
 
         return res.status(200).json({
             message: "Fetched all users!",
@@ -71,11 +72,7 @@ export async function updateUser(req, res) {
 
         const {
             name,
-            profilePic,
-            skills,
-            careerGoal,
-            education,
-            experience
+            profilePic
         } = req.body;
 
         // Only update fields that are provided
@@ -89,25 +86,11 @@ export async function updateUser(req, res) {
             updates.profilePic = profilePic;
         }
 
-        if (skills !== undefined) {
-            updates.skills = skills;
-        }
-
-        if (careerGoal !== undefined) {
-            updates.careerGoal = careerGoal;
-        }
-
-        if (education !== undefined) {
-            updates.education = education;
-        }
-
-        if (experience !== undefined) {
-            updates.experience = experience;
-        }
-
         const user = await User.findByIdAndUpdate(
             id,
-            { $set: updates },
+            {
+                $set: updates
+            },
             {
                 new: true,
                 runValidators: true
