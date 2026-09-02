@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useAuth } from '../context/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 import { loginUser } from '../services/authService'
 
 const Login = () => {
 
     const navigate = useNavigate()
+    const { login } = useAuth()
 
     const [formData, setFormData] = useState({
         email: '',
@@ -31,23 +33,13 @@ const Login = () => {
 
             const response = await loginUser(formData)
 
-            console.log("Login successful:", response)
-
-            // Save token
-            localStorage.setItem("token", response.token)
-
-            // Save user object
-            localStorage.setItem(
-                "user",
-                JSON.stringify(response.user)
-            )
+            login(response.user, response.token)
 
             // Clear form
             setFormData({
                 email: '',
                 password: ''
             })
-
             // Go to dashboard
             navigate('/dashboard')
 
