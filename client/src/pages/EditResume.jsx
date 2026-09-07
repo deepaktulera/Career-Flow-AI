@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { createResume } from '../services/resumeService'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { createResume, showMyResume, updateResume } from '../services/resumeService'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const education = () => ({ degree: '', institution: '', startYear: '', endYear: '' })
 const experience = () => ({ company: '', position: '', startDate: '', endDate: '', description: '' })
@@ -10,7 +10,8 @@ const certification = () => ({ name: '', organization: '', issueDate: '', creden
 const input = 'w-full rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
 const textarea = `${input} resize-none`
 
-const CreateResume = () => {
+const EditResume = () => {
+    const {id} = useParams()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     title: '',
@@ -26,6 +27,14 @@ const CreateResume = () => {
   const [technologyInputs, setTechnologyInputs] = useState({})
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    async function fetchResume(){
+        const responce = await showMyResume(id)
+        setFormData(responce.resume)
+    }
+    fetchResume()
+  } , [])
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -105,11 +114,11 @@ const CreateResume = () => {
     try {
       setLoading(true)
       setError('')
-      await createResume(formData)
+      await updateResume(id , formData)
       navigate('/dashboard')
     } catch (err) {
       console.error(err)
-      setError(err.response?.data?.message || 'Something went wrong while creating your resume.')
+      setError(err.response?.data?.message || 'Something went wrong while updating your resume.')
     } finally {
       setLoading(false)
     }
@@ -119,8 +128,8 @@ const CreateResume = () => {
     <div className="min-h-screen bg-slate-50 px-4 py-10">
       <div className="mx-auto mb-8 max-w-5xl text-center">
         <p className="mb-2 text-sm font-semibold uppercase text-blue-600">Resume Builder</p>
-        <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">Create Your Resume</h1>
-        <p className="mt-2 text-sm text-slate-500 sm:text-base">Add your details and build a professional resume.</p>
+        <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">Edit Your Resume</h1>
+        <p className="mt-2 text-sm text-slate-500 sm:text-base">Edit your details and build a professional resume.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
@@ -215,7 +224,7 @@ const CreateResume = () => {
         <div className="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50 p-6 sm:flex-row sm:justify-between sm:p-8">
           <button type="button" onClick={() => navigate('/dashboard')} className="rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100">Cancel</button>
           <button type="submit" disabled={loading} className="rounded-lg bg-blue-600 px-8 py-3 text-sm font-semibold text-white shadow-md hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
-            {loading ? 'Creating Resume...' : 'Create Resume →'}
+            {loading ? 'Creating Resume...' : 'Edit Resume →'}
           </button>
         </div>
       </form>
@@ -294,4 +303,4 @@ function ArraySection({ title, section, items, create, add, remove, children }) 
   )
 }
 
-export default CreateResume
+export default EditResume

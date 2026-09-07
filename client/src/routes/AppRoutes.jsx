@@ -5,6 +5,8 @@ import LandingPage from '../pages/LangingPage'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import CreateResume from '../pages/CreateResume'
+import EditResume from '../pages/EditResume'
+import ViewResume from '../pages/ViewResume'
 
 const AppRoutes = createBrowserRouter([
     {
@@ -26,6 +28,14 @@ const AppRoutes = createBrowserRouter([
     {
         path : "/create-resume",
         element : <CreateResume />
+    },
+    {
+        path : "/edit-resume/:id",
+        element : <EditResume />
+    },
+    {
+        path : "/view-resume/:id",
+        element : <ViewResume />
     }
 ])
 

@@ -4,7 +4,7 @@ export async function createResume(req, res) {
     try {
         const { title, personalInfo, careerGoal, skills, education, experience, projects, certifications } = req.body;
 
-        if (!title || !personalInfo || !careerGoal || !skills || !education) {
+        if (!title || !personalInfo ) {
             return res.status(400).json({
                 message: "Input field is missing!"
             })

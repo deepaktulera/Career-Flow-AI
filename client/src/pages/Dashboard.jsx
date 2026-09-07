@@ -75,7 +75,7 @@ const Dashboard = () => {
             <main className="p-4">
 
                 <div className="flex justify-between items-center">
-                    <h1 className="text-4xl">
+                    <h1 className="text-lg md:text-4xl">
                         Welcome Back,{' '}
                         <strong className="text-blue-500">
                             {user?.name}
@@ -84,7 +84,7 @@ const Dashboard = () => {
 
                     <Link
                         to="/create-resume"
-                        className="p-2 rounded-full border"
+                        className="p-1 md:p-2 text-center text-xs rounded-full border"
                     >
                         + Create Resume
                     </Link>
