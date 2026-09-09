@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { showMyResume } from "../services/resumeService";
+import { ArrowRightToLine } from 'lucide-react';
 
 const ViewResume = () => {
     const { id } = useParams();
@@ -43,12 +44,19 @@ const ViewResume = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 py-10 px-4">
+            <div className="border max-w-4xl mx-auto rounded-lg my-2 flex justify-between p-2">
+                <h1>Career Flow</h1> 
+                <div>
+                    <Link className="bg-blue-500 p-1 rounded text-white text-xs text-center" to={'/dashboard'}>Back <ArrowRightToLine size={12} className="inline text-center"/></Link>
+                    <button></button>
+                </div>
+            </div>
 
             {/* Resume */}
             <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
 
                 {/* Header */}
-                <div className="bg-slate-900 text-white p-8 flex justify-between w-full">
+                <div className="bg-slate-900 text-white p-8">
 
                     <div className="flex flex-col sm:flex-row items-center gap-6">
 

@@ -65,8 +65,9 @@ const Dashboard = () => {
                         className="w-10 h-10 rounded-full"
                     />
                     {open && (
-                        <div className='absolute border rounded shadow-2xs p-2 right-2 bg-white'>
-                            <button onClick={handleLogout}>Logout</button>
+                        <div className='absolute rounded shadow-2xl p-3 right-2 bg-gray-200/10 backdrop-blur-sm'>
+                            <Link to={"/profile"} className='hover:text-blue-500'>Profile</Link>
+                            <button className='hover:text-red-500' onClick={handleLogout}>Logout</button>
                         </div>
                     )}
                 </div>

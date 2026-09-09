@@ -72,7 +72,9 @@ export async function updateUser(req, res) {
 
         const {
             name,
-            profilePic
+            title,
+            profilePic,
+            skills
         } = req.body;
 
         // Only update fields that are provided
@@ -80,6 +82,10 @@ export async function updateUser(req, res) {
 
         if (name !== undefined) {
             updates.name = name;
+        }
+        
+        if (title !== undefined) {
+            updates.title = title;
         }
 
         if (profilePic !== undefined) {
