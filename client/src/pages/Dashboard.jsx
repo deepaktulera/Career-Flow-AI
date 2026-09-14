@@ -17,9 +17,6 @@ const Dashboard = () => {
         const fetchResumes = async () => {
             try {
                 const response = await showResumes()
-
-                console.log(response)
-
                 setResumes(response.resumes || [])
             } catch (error) {
                 console.error('Failed to fetch resumes:', error)

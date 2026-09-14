@@ -8,6 +8,12 @@ const ResumeSchema = new mongoose.Schema(
             required: true
         },
 
+        template: {
+            type: String,
+            enum: ["classic", "modern", "minimal"],
+            default: "classic"
+        },
+
         title: {
             type: String,
             required: true,

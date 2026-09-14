@@ -2,9 +2,9 @@ import Resume from "../models/ResumeModel.js";
 
 export async function createResume(req, res) {
     try {
-        const { title, personalInfo, careerGoal, skills, education, experience, projects, certifications } = req.body;
+        const { template, title, personalInfo, careerGoal, skills, education, experience, projects, certifications } = req.body;
 
-        if (!title || !personalInfo ) {
+        if (!title || !personalInfo) {
             return res.status(400).json({
                 message: "Input field is missing!"
             })
@@ -12,6 +12,7 @@ export async function createResume(req, res) {
 
         const newResume = await Resume.create({
             user: req.user.id,
+            template: template  || "classic",
             title,
             personalInfo,
             careerGoal,
@@ -92,12 +93,16 @@ export async function updateResume(req, res) {
     try {
         const { id } = req.params
 
-        const { title, personalInfo, careerGoal, skills, education, experience, projects, certifications } = req.body;
+        const { template, title, personalInfo, careerGoal, skills, education, experience, projects, certifications } = req.body;
 
         const update = {}
 
         if (title != undefined) {
             update.title = title
+        }
+
+        if (template !== undefined) {
+            update.template = template;
         }
 
         if (personalInfo != undefined) {

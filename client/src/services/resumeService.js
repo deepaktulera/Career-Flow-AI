@@ -6,7 +6,7 @@ export async function showResumes(){
         return responce.data
     }
     catch (error){
-        return error.message
+        return []
     }
 }
 
