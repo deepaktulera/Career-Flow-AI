@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 export function verifyToken(req, res, next) {
     try {
         const header = req.headers.authorization;
-
         if (!header) {
             return res.status(401).json({
                 message: "Authorization header not found!"
@@ -24,10 +23,12 @@ export function verifyToken(req, res, next) {
         );
         
         req.user = decoded;
-    
+
         next();
 
     } catch (error) {
+        console.log(error);
+        
         return res.status(401).json({
             message: "Invalid or expired token!"
         });

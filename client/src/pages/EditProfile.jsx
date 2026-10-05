@@ -1,51 +1,141 @@
-import React, { useState} from 'react'
-import { updatePassword, updateUser } from '../services/userServices'
-import { useAuth } from '../context/AuthContext'
+import React, { useState } from "react";
+import {
+    updatePassword,
+    updateUser,
+    updatePicture,
+} from "../services/userServices";
+import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
-    const {user} = useAuth()
+    const { user } = useAuth();
+
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         name: user?.name || "",
-        photo: user?.profilePic || null
-    })
+        photo: user?.profilePic || null,
+    });
 
     const [passwordData, setPasswordData] = useState({
         currentPassword: "",
-        newPassword: ""
-    })
+        newPassword: "",
+    });
 
     function handleChange(e) {
-        const { name, value, files } = e.target
+        const { name, value, files } = e.target;
 
+        // File input
+        if (files) {
+            const file = files[0];
+
+            if (!file) return;
+
+            // JPG and PNG validation
+            const allowedTypes = [
+                "image/jpeg",
+                "image/jpg",
+                "image/png",
+            ];
+
+            if (!allowedTypes.includes(file.type)) {
+                alert("Only JPG and PNG images are allowed.");
+                return;
+            }
+
+            // 5MB validation
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Image size must be less than 5MB.");
+                return;
+            }
+
+            setFormData((prev) => ({
+                ...prev,
+                [name]: file,
+            }));
+
+            return;
+        }
+
+        // Normal input
         setFormData((prev) => ({
             ...prev,
-            [name]: files ? files[0] : value
-        }))
+            [name]: value,
+        }));
     }
 
     function handlePasswordChange(e) {
-        const { name, value } = e.target
+        const { name, value } = e.target;
 
         setPasswordData((prev) => ({
             ...prev,
-            [name]: value
-        }))
+            [name]: value,
+        }));
     }
 
     async function handleSubmit(e) {
-        e.preventDefault()
-        const responce1 = await updateUser(user?.id , formData)
-        const responce2 = await updatePassword(passwordData.currentPassword , passwordData.newPassword)
-        
-        return responce1
-        return responce2
+        e.preventDefault();
+
+        try {
+            // Update name only if changed
+            if (formData.name !== user?.name) {
+                await updateUser(user?.id, {
+                    name: formData.name,
+                });
+            }
+
+            // Upload profile picture only if a new file is selected
+            if (formData.photo instanceof File) {
+                const imageData = new FormData();
+
+                imageData.append(
+                    "profilePic",
+                    formData.photo
+                );
+
+                console.log("Selected file:", formData.photo);
+                console.log("File name:", formData.photo.name);
+                console.log("File type:", formData.photo.type);
+                console.log("File size:", formData.photo.size);
+
+                for (const [key, value] of imageData.entries()) {
+                    console.log("FormData:", key, value);
+                }
+
+                await updatePicture(imageData);
+            }
+
+            // Change password only if both fields are filled
+            if (
+                passwordData.currentPassword &&
+                passwordData.newPassword
+            ) {
+                await updatePassword(
+                    passwordData.currentPassword,
+                    passwordData.newPassword
+                );
+            }
+
+            alert("Profile updated successfully.");
+            navigate("/profile")
+
+        } catch (error) {
+            console.error(
+                "Profile update error:",
+                error.response?.data?.message ||
+                error.message
+            );
+
+            alert(
+                error.response?.data?.message ||
+                "Failed to update profile."
+            );
+        }
     }
 
     return (
         <div className="min-h-screen bg-gray-100 px-4 py-10 sm:px-6 lg:px-8">
 
-            {/* Main Container */}
             <div className="mx-auto max-w-4xl">
 
                 {/* Header */}
@@ -81,22 +171,45 @@ const EditProfile = () => {
                             <div className="mb-8 flex flex-col items-center sm:flex-row sm:items-center">
 
                                 <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-blue-100">
+
                                     {formData.photo ? (
-                                        <img
-                                            src={URL.createObjectURL(formData.photo)}
-                                            alt="Profile preview"
-                                            className="h-full w-full object-cover"
-                                        />
+
+                                        typeof formData.photo === "string" ? (
+
+                                            <img
+                                                src={formData.photo}
+                                                alt="Profile"
+                                                className="h-full w-full object-cover"
+                                            />
+
+                                        ) : (
+
+                                            <img
+                                                src={URL.createObjectURL(
+                                                    formData.photo
+                                                )}
+                                                alt="Profile preview"
+                                                className="h-full w-full object-cover"
+                                            />
+
+                                        )
+
                                     ) : (
+
                                         <span className="text-3xl font-bold text-blue-600">
                                             {formData.name
-                                                ? formData.name.charAt(0).toUpperCase()
+                                                ? formData.name
+                                                    .charAt(0)
+                                                    .toUpperCase()
                                                 : "U"}
                                         </span>
+
                                     )}
+
                                 </div>
 
                                 <div className="mt-4 sm:ml-6 sm:mt-0">
+
                                     <label
                                         htmlFor="photo"
                                         className="cursor-pointer rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
@@ -108,20 +221,22 @@ const EditProfile = () => {
                                         id="photo"
                                         name="photo"
                                         type="file"
-                                        accept="image/*"
+                                        accept="image/jpeg,image/png,.jpg,.jpeg,.png"
                                         className="hidden"
                                         onChange={handleChange}
                                     />
 
                                     <p className="mt-2 text-xs text-gray-400">
-                                        JPG, PNG or WEBP. Max size 5MB.
+                                        JPG or PNG only. Max size 5MB.
                                     </p>
+
                                 </div>
 
                             </div>
 
                             {/* Name */}
                             <div>
+
                                 <label
                                     htmlFor="name"
                                     className="mb-2 block text-sm font-medium text-gray-700"
@@ -138,6 +253,7 @@ const EditProfile = () => {
                                     onChange={handleChange}
                                     className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                                 />
+
                             </div>
 
                         </div>
@@ -146,6 +262,7 @@ const EditProfile = () => {
                         <div className="p-6 sm:p-8">
 
                             <div className="mb-6">
+
                                 <h2 className="text-xl font-semibold text-gray-900">
                                     Change Password
                                 </h2>
@@ -153,12 +270,14 @@ const EditProfile = () => {
                                 <p className="mt-1 text-sm text-gray-500">
                                     Use a strong password to keep your account secure.
                                 </p>
+
                             </div>
 
                             <div className="grid gap-6 sm:grid-cols-2">
 
                                 {/* Current Password */}
                                 <div>
+
                                     <label
                                         htmlFor="currentPassword"
                                         className="mb-2 block text-sm font-medium text-gray-700"
@@ -175,10 +294,12 @@ const EditProfile = () => {
                                         onChange={handlePasswordChange}
                                         className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                                     />
+
                                 </div>
 
                                 {/* New Password */}
                                 <div>
+
                                     <label
                                         htmlFor="newPassword"
                                         className="mb-2 block text-sm font-medium text-gray-700"
@@ -195,6 +316,7 @@ const EditProfile = () => {
                                         onChange={handlePasswordChange}
                                         className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                                     />
+
                                 </div>
 
                             </div>
@@ -204,12 +326,12 @@ const EditProfile = () => {
                         {/* Footer */}
                         <div className="flex flex-col-reverse gap-3 border-t border-gray-200 bg-gray-50 px-6 py-5 sm:flex-row sm:justify-end sm:px-8">
 
-                            <button
-                                type="button"
+                            <Link
+                                to="/profile"
                                 className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
                             >
                                 Cancel
-                            </button>
+                            </Link>
 
                             <button
                                 type="submit"
@@ -227,7 +349,7 @@ const EditProfile = () => {
             </div>
 
         </div>
-    )
-}
+    );
+};
 
-export default EditProfile
+export default EditProfile;

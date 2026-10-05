@@ -371,14 +371,13 @@ const CreateResume = () => {
       setError("");
 
       await createResume(formData);
-
       navigate("/dashboard");
+      
     } catch (error) {
       console.error(error);
-
       setError(
         error.response?.data?.message ||
-          "Something went wrong while creating your resume."
+        "Something went wrong while creating your resume."
       );
     } finally {
       setLoading(false);
@@ -428,7 +427,7 @@ const CreateResume = () => {
             </label>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:overflow-x-auto w-full">
-              {["classic", "Modern" , "Minimal"].map(
+              {["classic", "modern", "minimal"].map(
                 (templateName) => (
                   <button
                     key={templateName}
@@ -436,11 +435,10 @@ const CreateResume = () => {
                     onClick={() =>
                       handleTemplateChange(templateName)
                     }
-                    className={`rounded-xl border-2 p-6 text-center transition ${
-                      formData.template === templateName
-                        ? "border-blue-600 bg-blue-50"
-                        : "border-slate-200 bg-white hover:border-blue-300"
-                    }`}
+                    className={`rounded-xl border-2 p-6 text-center transition ${formData.template === templateName
+                      ? "border-blue-600 bg-blue-50"
+                      : "border-slate-200 bg-white hover:border-blue-300"
+                      }`}
                   >
                     <div className="mb-4 flex h-28 items-center justify-center rounded-lg bg-slate-100">
                       <span className="text-sm font-medium text-slate-500">
@@ -454,10 +452,10 @@ const CreateResume = () => {
 
                     {formData.template ===
                       templateName && (
-                      <p className="mt-2 text-xs font-medium text-blue-600">
-                        Selected
-                      </p>
-                    )}
+                        <p className="mt-2 text-xs font-medium text-blue-600">
+                          Selected
+                        </p>
+                      )}
                   </button>
                 )
               )}
@@ -893,16 +891,16 @@ const CreateResume = () => {
 
                   {formData.certifications.length >
                     1 && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        removeCertification(index)
-                      }
-                      className="text-sm font-medium text-red-500"
-                    >
-                      Remove
-                    </button>
-                  )}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          removeCertification(index)
+                        }
+                        className="text-sm font-medium text-red-500"
+                      >
+                        Remove
+                      </button>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

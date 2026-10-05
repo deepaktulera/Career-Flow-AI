@@ -123,8 +123,10 @@ export async function loginUser(req, res) {
 
 // Change Password
 export async function changePassword(req, res) {
+
     try {
         const { currentPassword, newPassword } = req.body;
+        
 
         // Validate required fields
         if (!currentPassword || !newPassword) {

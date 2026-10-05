@@ -52,47 +52,6 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <section id="how-it-works" className="scroll-mt-20 bg-slate-50 py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-            <div className="grid items-center gap-14 lg:grid-cols-2">
-              <div>
-                <span className="rounded-full bg-white px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-blue-600 shadow-sm">How it works</span>
-                <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">A simpler way to <span className="text-blue-600">land the right job.</span></h2>
-                <p className="mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">Spend less time managing your job search and more time preparing for opportunities that actually fit.</p>
-                <div className="mt-9 space-y-7">
-                  {steps.map(([number, title, text]) => (
-                    <div key={number} className="flex gap-4">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-black text-white">{number}</span>
-                      <div><h3 className="font-extrabold">{title}</h3><p className="mt-1.5 text-sm leading-6 text-slate-600">{text}</p></div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/5">
-                <div className="rounded-3xl bg-slate-950 p-6 text-white sm:p-8">
-                  <div className="flex items-center justify-between"><div className="flex items-center gap-2"><span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500"><Bot size={17} /></span><span className="text-sm font-bold">CareerFlow AI Coach</span></div><span className="rounded-full bg-white/10 px-3 py-1 text-[11px] text-slate-300">Online</span></div>
-                  <div className="mt-8 space-y-4">
-                    <div className="ml-auto max-w-[82%] rounded-2xl rounded-br-sm bg-blue-600 p-4 text-sm leading-6">I’m applying for frontend developer roles. What should I improve first?</div>
-                    <div className="max-w-[88%] rounded-2xl rounded-bl-sm bg-white/10 p-4 text-sm leading-6 text-slate-200">Start with your resume headline and project impact. I found 3 areas that can make your profile stronger for your target roles.</div>
-                  </div>
-                  <div className="mt-6 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3"><Sparkles size={17} className="text-blue-300" /><span className="text-sm text-slate-300">Analyzing your career profile...</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-            <div className="grid gap-5 sm:grid-cols-3">
-              {[['10x', 'more organized job search'], ['92%', 'average profile completeness'], ['1', 'workspace for your career']].map(([value, label]) => (
-                <div key={label} className="rounded-2xl border border-slate-200 p-7 text-center"><p className="text-4xl font-black text-blue-600">{value}</p><p className="mt-2 text-sm font-medium text-slate-500">{label}</p></div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section id="success" className="scroll-mt-20 bg-slate-950 py-20 text-white sm:py-24">
           <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
             <div className="mx-auto max-w-2xl text-center"><span className="rounded-full bg-white/10 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-blue-300">Success stories</span><h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Built to keep you <span className="text-blue-400">moving.</span></h2><p className="mt-5 text-slate-400">A better process creates a better job search experience.</p></div>

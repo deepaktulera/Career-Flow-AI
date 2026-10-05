@@ -4,7 +4,7 @@ import { showResumes, deleteResume } from '../services/resumeService'
 import { Link, useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
-    const { user , logout} = useAuth()
+    const { user, logout } = useAuth()
 
     const [open, setOpen] = useState(null)
     const [resumes, setResumes] = useState([])
@@ -56,11 +56,17 @@ const Dashboard = () => {
                 <Link to={"/"}>CAREER FLOW AI</Link>
 
                 <div onClick={() => setOpen(!open)} className='relative'>
-                    <img
-                        src={user?.profilePic}
-                        alt="profile"
-                        className="w-10 h-10 rounded-full"
-                    />
+                    {user?.profilePic ? (
+                        <img
+                            src={user.profilePic}
+                            alt="profile"
+                            className="h-10 w-10 rounded-full object-cover"
+                        />
+                    ) : (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
+                            {user?.name?.charAt(0).toUpperCase()}
+                        </div>
+                    )}
                     {open && (
                         <div className='absolute rounded shadow-2xl p-3 right-2 bg-gray-200/10 backdrop-blur-sm'>
                             <Link to={"/profile"} className='hover:text-blue-500'>Profile</Link>

@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { showMyResume } from "../services/resumeService";
 import { ArrowRightToLine } from 'lucide-react';
 import ClassicTemplate from "../components/resumeTemplates/ClassicTemplate";
+import ModernTemplate from "../components/resumeTemplates/ModernTemplate";
+import MinimalTemplate from "../components/resumeTemplates/MinimalTemplate";
 
 const ViewResume = () => {
     const { id } = useParams();
