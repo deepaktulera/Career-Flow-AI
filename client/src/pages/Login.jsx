@@ -109,17 +109,17 @@ const Login = () => {
                     <div>
                         <label className="block mb-1 text-sm font-medium text-gray-700">
                             Password
-                        </label>
 
-                        <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            placeholder="Enter your password"
-                            required
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                        />
+                            <input
+                                type="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                placeholder="Enter your password"
+                                required
+                                className="realative w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                            />
+                        </label>
                     </div>
 
                     {/* Button */}

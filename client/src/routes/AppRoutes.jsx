@@ -12,6 +12,7 @@ import Profile from "../pages/Profile";
 
 import ProtectedRoutes from "./ProtectedRoutes";
 import EditProfile from "../pages/EditProfile";
+import Application from "../pages/Application";
 
 const AppRoutes = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const AppRoutes = createBrowserRouter([
             {
                 path: "/view-resume/:id",
                 element: <ViewResume />
+            },
+            {
+                path : "/applications",
+                element : <Application />
             }
         ]
     }

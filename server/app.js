@@ -3,6 +3,7 @@ import connectDatabase from "./config/database.js";
 import authRoutes from './routes/auth.route.js'
 import userRoutes from './routes/user.routes.js'
 import resumeRoutes from './routes/resume.routes.js'
+import applicationRoutes from './routes/jobApplication.routes.js'
 import dotenv from 'dotenv'
 import cors from 'cors'
 
@@ -16,5 +17,6 @@ app.use(express.json());
 app.use("/auth" , authRoutes)
 app.use("/user" , userRoutes)
 app.use("/resume" , resumeRoutes)
+app.use("/application", applicationRoutes)
 
 export default app;

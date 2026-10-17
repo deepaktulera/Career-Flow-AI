@@ -82,6 +82,13 @@ const Profile = () => {
                         >
                             Log Out
                         </button>
+
+                        <Link 
+                        to="/dashboard"
+                        className="rounded-lg px-4 py-3 text-sm font-medium transition hover:bg-slate-700 active:scale-95"
+                        >
+                        Go To Dashboard
+                        </Link>
                     </nav>
                 </aside>
 
