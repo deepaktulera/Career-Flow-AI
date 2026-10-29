@@ -37,6 +37,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 lg:flex">
+          <Link to="/jobs" className="text-sm font-medium text-slate-600 transition hover:text-slate-950">Find Jobs</Link>
           <a
             href="#features"
             className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
@@ -73,7 +74,7 @@ const Navbar = () => {
               className="flex items-center gap-2"
             >
               <img
-                src={user.profilePic}
+                src={user.profilePic || "/favicon.svg"}
                 alt="profile"
                 className="h-9 w-9 rounded-full object-cover"
               />
@@ -122,7 +123,7 @@ const Navbar = () => {
         <div className="border-t border-slate-200 bg-white px-5 py-5 lg:hidden">
 
           <div className="flex flex-col gap-1">
-
+            <Link to="/jobs" onClick={closeMenu} className="rounded-lg px-3 py-3 font-medium text-slate-700 hover:bg-slate-50">Find Jobs</Link>
             <a
               href="#features"
               onClick={closeMenu}
@@ -156,7 +157,7 @@ const Navbar = () => {
                 className="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50"
               >
                 <img
-                  src={user.profilePic}
+                  src={user.profilePic || "/favicon.svg"}
                   alt="profile"
                   className="h-9 w-9 rounded-full object-cover"
                 />

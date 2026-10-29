@@ -40,8 +40,8 @@ const Login = () => {
                 email: '',
                 password: ''
             })
-            // Go to dashboard
-            navigate('/dashboard')
+            // Send recruiters to their job management page.
+            navigate(response.user?.role === 'recruiter' ? '/recruiter' : '/dashboard')
 
         } catch (error) {
 

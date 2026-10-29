@@ -70,14 +70,8 @@ export async function showMyResumes(req, res) {
             user: req.user.id
         })
 
-        if (resumes.length === 0) {
-            return res.status(404).json({
-                message: "No resume Found!"
-            })
-        }
-
         return res.status(200).json({
-            message: "Resumes fetch successfully!",
+            message: "Resumes fetched successfully!",
             resumes
         })
     }

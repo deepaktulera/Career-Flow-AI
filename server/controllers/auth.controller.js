@@ -7,6 +7,8 @@ import jwt from "jsonwebtoken";
 export async function registerUser(req, res) {
     try {
         const { name, email, password, profilePic } = req.body;
+        const requestedRole = req.body.role;
+        const role = requestedRole === "recruiter" ? "recruiter" : "jobSeeker";
 
         // Validate required fields
         if (!name || !email || !password) {
@@ -32,7 +34,8 @@ export async function registerUser(req, res) {
             name,
             email,
             password: hashedPassword,
-            profilePic
+            profilePic,
+            role
         });
 
         return res.status(201).json({
@@ -41,7 +44,8 @@ export async function registerUser(req, res) {
                 id: newUser._id,
                 name: newUser.name,
                 email: newUser.email,
-                profilePic: newUser.profilePic
+                profilePic: newUser.profilePic,
+                role: newUser.role
             }
         });
 
@@ -92,7 +96,8 @@ export async function loginUser(req, res) {
         const token = jwt.sign(
             {
                 id: user._id,
-                name: user.name
+                name: user.name,
+                role: user.role || "jobSeeker"
             },
             process.env.JWT_SECRET,
             {
@@ -107,7 +112,8 @@ export async function loginUser(req, res) {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                profilePic: user.profilePic
+                profilePic: user.profilePic,
+                role: user.role || "jobSeeker"
             }
         });
 

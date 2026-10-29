@@ -13,6 +13,8 @@ import Profile from "../pages/Profile";
 import ProtectedRoutes from "./ProtectedRoutes";
 import EditProfile from "../pages/EditProfile";
 import Application from "../pages/Application";
+import Jobs from "../pages/Jobs";
+import RecruiterDashboard from "../pages/RecruiterDashboard";
 
 const AppRoutes = createBrowserRouter([
     {
@@ -26,6 +28,10 @@ const AppRoutes = createBrowserRouter([
     {
         path: "/login",
         element: <Login />
+    },
+    {
+        path: "/jobs",
+        element: <Jobs />
     },
 
     // Protected routes
@@ -57,8 +63,12 @@ const AppRoutes = createBrowserRouter([
                 element: <ViewResume />
             },
             {
-                path : "/applications",
-                element : <Application />
+                path: "/applications",
+                element: <Application />
+            },
+            {
+                path: "/recruiter",
+                element: <RecruiterDashboard />
             }
         ]
     }

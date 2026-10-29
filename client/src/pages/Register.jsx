@@ -10,7 +10,8 @@ const Register = () => {
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        role: 'jobSeeker'
     })
 
     const [error, setError] = useState('')
@@ -45,7 +46,8 @@ const Register = () => {
                 name: '',
                 email: '',
                 password: '',
-                confirmPassword: ''
+                confirmPassword: '',
+                role: 'jobSeeker'
             })
 
             navigate('/login')
@@ -110,6 +112,23 @@ const Register = () => {
                             required
                             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                         />
+                    </div>
+
+                    {/* Account type */}
+                    <div>
+                        <label className="block mb-1 text-sm font-medium text-gray-700">
+                            I want to
+                        </label>
+                        <select
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                        >
+                            <option value="jobSeeker">Find jobs (Job Seeker)</option>
+                            <option value="recruiter">Post jobs (Recruiter)</option>
+                        </select>
+                        <p className="mt-1 text-xs text-gray-500">Recruiter accounts can publish vacancies and manage applicants.</p>
                     </div>
 
                     {/* Email */}
