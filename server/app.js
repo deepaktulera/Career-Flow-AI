@@ -12,9 +12,25 @@ const app = express();
 dotenv.config()
 connectDatabase()
 
-//middlewares
-app.use(cors())
-app.use(express.json());
+// Middleware and production-aware CORS configuration.
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+app.use(cors({
+    origin(origin, callback) {
+        // Allow non-browser tools and configured frontend origins.
+        if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+        return callback(new Error("Origin is not allowed by CORS"));
+    },
+    credentials: true,
+}));
+app.use(express.json({ limit: "1mb" }));
+
+app.get("/health", (_req, res) => {
+    res.status(200).json({ status: "ok", service: "CareerFlow AI API" });
+});
 app.use("/auth" , authRoutes)
 app.use("/user" , userRoutes)
 app.use("/resume" , resumeRoutes)

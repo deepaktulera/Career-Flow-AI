@@ -29,9 +29,8 @@ const Hero = () => {
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
-            Create, edit, and manage professional resumes in one simple
-            workspace. Keep your career information organized and ready for
-            your next opportunity.
+            Build professional resumes, compare your skills with a job description,
+            and explore recruiter-posted opportunities—all in one career workspace.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -39,35 +38,43 @@ const Hero = () => {
               to="/register"
               className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
             >
-              Create my resume
+              Build my resume
               <ArrowRight
                 size={18}
                 className="transition group-hover:translate-x-1"
               />
             </Link>
 
-            <a
-              href="#features"
+            <Link
+              to="/ats-checker"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-blue-50 px-6 py-3.5 font-bold text-blue-700 transition hover:bg-blue-100"
+            >
+              Check ATS match
+            </Link>
+
+            <Link
+              to="/jobs"
               className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3.5 font-bold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
             >
-              Explore features
-            </a>
+              Browse jobs
+            </Link>
+
           </div>
 
           <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500">
             <span className="flex items-center gap-2">
               <CheckCircle2 size={16} className="text-blue-600" />
-              Multiple resumes
+              ATS keyword review
             </span>
 
             <span className="flex items-center gap-2">
               <CheckCircle2 size={16} className="text-blue-600" />
-              Easy editing
+              Recruiter-posted jobs
             </span>
 
             <span className="flex items-center gap-2">
               <CheckCircle2 size={16} className="text-blue-600" />
-              Three templates
+              Application tracking
             </span>
           </div>
         </div>

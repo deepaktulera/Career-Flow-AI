@@ -15,6 +15,7 @@ import EditProfile from "../pages/EditProfile";
 import Application from "../pages/Application";
 import Jobs from "../pages/Jobs";
 import RecruiterDashboard from "../pages/RecruiterDashboard";
+import ATSChecker from "../pages/ATSChecker";
 
 const AppRoutes = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const AppRoutes = createBrowserRouter([
     {
         path: "/jobs",
         element: <Jobs />
+    },
+    {
+        path: "/ats-checker",
+        element: <ATSChecker />
     },
 
     // Protected routes

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
-  ChevronDown,
   Menu,
   Sparkles,
   X
@@ -38,6 +37,7 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 lg:flex">
           <Link to="/jobs" className="text-sm font-medium text-slate-600 transition hover:text-slate-950">Find Jobs</Link>
+          <Link to="/ats-checker" className="text-sm font-medium text-slate-600 transition hover:text-slate-950">ATS Checker</Link>
           <a
             href="#features"
             className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
@@ -52,17 +52,7 @@ const Navbar = () => {
             How it works
           </a>
 
-          <a
-            href="#success"
-            className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
-          >
-            Success stories
-          </a>
-
-          <button className="flex items-center gap-1 text-sm font-medium text-slate-600 transition hover:text-slate-950">
-            Resources
-            <ChevronDown size={15} />
-          </button>
+          <Link to="/recruiter" className="text-sm font-medium text-slate-600 transition hover:text-slate-950">For Recruiters</Link>
         </div>
 
         {/* Desktop Auth */}
@@ -70,7 +60,7 @@ const Navbar = () => {
 
           {user ? (
             <Link
-              to="/dashboard"
+              to={user.role === "recruiter" ? "/recruiter" : "/dashboard"}
               className="flex items-center gap-2"
             >
               <img
@@ -124,6 +114,7 @@ const Navbar = () => {
 
           <div className="flex flex-col gap-1">
             <Link to="/jobs" onClick={closeMenu} className="rounded-lg px-3 py-3 font-medium text-slate-700 hover:bg-slate-50">Find Jobs</Link>
+            <Link to="/ats-checker" onClick={closeMenu} className="rounded-lg px-3 py-3 font-medium text-slate-700 hover:bg-slate-50">ATS Resume Checker</Link>
             <a
               href="#features"
               onClick={closeMenu}
@@ -140,19 +131,11 @@ const Navbar = () => {
               How it works
             </a>
 
-            <a
-              href="#success"
-              onClick={closeMenu}
-              className="rounded-lg px-3 py-3 font-medium text-slate-700 hover:bg-slate-50"
-            >
-              Success stories
-            </a>
-
             <div className="my-3 h-px bg-slate-200" />
 
             {user ? (
               <Link
-                to="/dashboard"
+                to={user.role === "recruiter" ? "/recruiter" : "/dashboard"}
                 onClick={closeMenu}
                 className="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50"
               >

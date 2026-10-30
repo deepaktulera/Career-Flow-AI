@@ -8,6 +8,8 @@ import {
   PencilLine,
   Sparkles,
   UserRound,
+  Search,
+  ShieldCheck,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 import Navbar from "../components/Navbar"
@@ -34,6 +36,16 @@ const features = [
     title: "Resume Management",
     text: "Create multiple resumes, view them, edit them, and remove old versions from your dashboard.",
   },
+  {
+    icon: Search,
+    title: "ATS Resume Checker",
+    text: "Compare resume text with a job description, review keyword gaps, and check common resume sections.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Job Portal",
+    text: "Explore recruiter-posted opportunities, apply with your resume, and track application progress.",
+  },
 ]
 
 const steps = [
@@ -50,7 +62,7 @@ const steps = [
   {
     number: "03",
     title: "Manage your career",
-    text: "Keep improving your resume today. Job tracking and smarter career tools can be added next.",
+    text: "Check your resume against a job description, browse vacancies, and track your applications in one place.",
   },
 ]
 
@@ -76,8 +88,7 @@ const LandingPage = () => {
               </h2>
 
               <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
-                CareerFlow AI currently focuses on making resume creation and
-                career information management simple and organized.
+                Build and manage resumes, compare your skills with job descriptions, and discover opportunities from one career workspace.
               </p>
             </div>
 
@@ -119,8 +130,7 @@ const LandingPage = () => {
               </h2>
 
               <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
-                CareerFlow is being built step by step, starting with a solid
-                resume and profile foundation.
+                Move from preparing your resume to checking job fit and applying for relevant opportunities.
               </p>
             </div>
 
@@ -147,43 +157,21 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* Next feature / roadmap */}
-        <section id="roadmap" className="scroll-mt-20 py-20 sm:py-24">
-          <div className="mx-auto max-w-5xl overflow-hidden rounded-[2rem] border border-blue-100 bg-blue-50 px-6 py-12 sm:px-12">
-            <div className="flex flex-col items-center text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white">
-                <Sparkles size={22} />
-              </div>
-
-              <span className="mt-5 text-xs font-bold uppercase tracking-wider text-blue-600">
-                Next development step
-              </span>
-
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
-                Job Application Tracker
-              </h2>
-
-              <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">
-                The next major feature should let users save job applications,
-                track their status, add company and role details, and manage
-                their job-search progress from the dashboard.
-              </p>
-
-              <div className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-medium text-slate-600">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-blue-600" />
-                  Company & role
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-blue-600" />
-                  Application status
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-blue-600" />
-                  Notes & follow-ups
-                </span>
-              </div>
-            </div>
+        {/* Career tools */}
+        <section id="roadmap" className="scroll-mt-20 py-16 sm:py-20">
+          <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
+            <article className="rounded-3xl border border-blue-100 bg-blue-50 p-8">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-700">For job seekers</span>
+              <h2 className="mt-3 text-2xl font-black">Make every application count.</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-600">Check keyword overlap, review common resume sections, and find missing terms to consider before applying.</p>
+              <Link to="/ats-checker" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-700">Try ATS checker <ArrowRight size={17} /></Link>
+            </article>
+            <article className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Find opportunities</span>
+              <h2 className="mt-3 text-2xl font-black">Your next role starts here.</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-600">Browse vacancies posted by recruiters. Create an account to apply and keep track of your applications.</p>
+              <Link to="/jobs" className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-bold text-slate-800 hover:bg-slate-50">Explore jobs <ArrowRight size={17} /></Link>
+            </article>
           </div>
         </section>
 
@@ -217,7 +205,7 @@ const LandingPage = () => {
               CareerFlow <span className="text-blue-600">AI</span>
             </Link>
             <p className="mt-2 text-sm text-slate-500">
-              Build your resume. Organize your career.
+              Build your resume. Check your fit. Find your next role.
             </p>
           </div>
 
@@ -231,6 +219,12 @@ const LandingPage = () => {
             <a href="#roadmap" className="hover:text-slate-900">
               Roadmap
             </a>
+            <Link to="/ats-checker" className="hover:text-slate-900">
+              ATS Checker
+            </Link>
+            <Link to="/jobs" className="hover:text-slate-900">
+              Find Jobs
+            </Link>
             <Link to="/login" className="hover:text-slate-900">
               Log in
             </Link>

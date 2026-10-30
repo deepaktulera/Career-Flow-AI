@@ -1,51 +1,23 @@
 import api from "./axios";
 
-export async function showResumes(){
-    try{
-        const responce = await api.get("/resume");
-        return responce.data
-    }
-    catch (error){
-        return []
-    }
+export async function showResumes() {
+    const response = await api.get("/resume");
+    return response.data;
 }
 
-export async function showMyResume(id){
-    try{
-        const responce = await api.get(`/resume/${id}`)
-        return responce.data
-    }
-    catch(error){
-        return error
-    }
+export async function showMyResume(id) {
+    const response = await api.get(`/resume/${id}`);
+    return response.data;
 }
 
-export async function createResume(data){
-    try{
-        const responce = await api.post("/resume/create" , data)
-        return responce
-    }
-    catch(error){
-        return error
-    }
+export async function createResume(data) {
+    return api.post("/resume/create", data);
 }
 
-export async function updateResume(id , data){
-    try{
-        const responce = await api.patch(`/resume/${id}` , data)
-        return responce
-    }
-    catch(error){
-        return error
-    }
+export async function updateResume(id, data) {
+    return api.patch(`/resume/${id}`, data);
 }
 
-export async function deleteResume(id){
-    try{
-        const responce = await api.delete(`/resume/${id}`)
-        return responce
-    }
-    catch(error){
-        throw error
-    }
+export async function deleteResume(id) {
+    return api.delete(`/resume/${id}`);
 }
